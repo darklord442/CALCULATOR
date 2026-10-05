@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./css/calcu.css" />
+  </head>
+  <body>
+
+    <form class="calculator" name="calc">
+      <input type="text" class="value" name="txt" id="display" readonly="" />
+      
+      <!-- Memory Buttons Row -->
+      <div class="memory-row">
+        <span class="mem-btn" onclick="memoryClear()">MC</span>
+        <span class="mem-btn" onclick="memoryRecall()">MR</span>
+        <span class="mem-btn" onclick="memoryAdd()">M+</span>
+        <span class="mem-btn" onclick="memorySubtract()">M-</span>
+        <span class="mem-btn" onclick="memoryStore()">MS</span>
+        <span class="mem-btn disabled">M▼</span>
+      </div>
+
+      
+      <span class="num" onclick="appendPercentage()">%</span>
+      <span class="num clear" onclick="clearDisplay()">CE</span>
+      <span class="num clear" onclick="clearDisplay()">C</span>
+      <span class="num" onclick="deleteLast()" style="display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
+          <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+          <line x1="18" y1="9" x2="12" y2="15"></line>
+          <line x1="12" y1="9" x2="18" y2="15"></line>
+        </svg>
+      </span>
+
+      
+      <span class="num" onclick="calculateReciprocal()">1/x</span>
+      <span class="num" onclick="calculateSquare()">x²</span>
+      <span class="num" onclick="calculateSquareRoot()">²√x</span>
+      <span class="num" onclick="appendValue('/')">÷</span>
+      <span class="num" onclick="appendValue('7')">7</span>
+      <span class="num" onclick="appendValue('8')">8</span>
+      <span class="num" onclick="appendValue('9')">9</span>
+      <span class="num" onclick="appendValue('*')">×</span>
+      <span class="num" onclick="appendValue('4')">4</span>
+      <span class="num" onclick="appendValue('5')">5</span>
+      <span class="num" onclick="appendValue('6')">6</span>
+      <span class="num" onclick="appendValue('-')">-</span>
+      <span class="num" onclick="appendValue('1')">1</span>
+      <span class="num" onclick="appendValue('2')">2</span>
+      <span class="num" onclick="appendValue('3')">3</span>
+      <span class="num plus" onclick="appendValue('+')">+</span>
+      <span class="num" onclick="toggleSign()">+/-</span>
+      <span class="num" onclick="appendValue('0')">0</span>
+      <span class="num" onclick="appendValue('.')">.</span>
+      <span class="num equal" onclick="calculateResult()">=</span>
+    </form>
+
+    <script src="./js/java.js"></script>
+  </body>
+</html>
