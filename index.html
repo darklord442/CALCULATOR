@@ -9,52 +9,125 @@
   </head>
   <body>
 
-    <form class="calculator" name="calc">
+    <form class="calculator" name="calc" id="calculator">
+      <header class="calculator-header">
+        <button class="menu-toggle" type="button" aria-label="Choose calculator mode" aria-expanded="false" onclick="toggleModeMenu()">
+          <span aria-hidden="true">☰</span>
+        </button>
+        <span class="calculator-title" id="calculator-title">Standard</span>
+        <div class="mode-menu" id="mode-menu" hidden>
+          <button type="button" onclick="setCalculatorMode('standard')">Standard</button>
+          <button type="button" onclick="setCalculatorMode('scientific')">Scientific</button>
+        </div>
+      </header>
+
       <input type="text" class="value" name="txt" id="display" readonly="" />
-      
-      <!-- Memory Buttons Row -->
-      <div class="memory-row">
-        <span class="mem-btn" onclick="memoryClear()">MC</span>
-        <span class="mem-btn" onclick="memoryRecall()">MR</span>
-        <span class="mem-btn" onclick="memoryAdd()">M+</span>
-        <span class="mem-btn" onclick="memorySubtract()">M-</span>
-        <span class="mem-btn" onclick="memoryStore()">MS</span>
-        <span class="mem-btn disabled">M▼</span>
+
+      <div class="scientific-options">
+        <button type="button" class="option-btn" onclick="toggleAngleMode()" id="angle-mode">DEG</button>
+        <button type="button" class="option-btn" onclick="toggleExponentFormat()">F-E</button>
       </div>
 
-      
-      <span class="num" onclick="appendPercentage()">%</span>
-      <span class="num clear" onclick="clearDisplay()">CE</span>
-      <span class="num clear" onclick="clearDisplay()">C</span>
-      <span class="num" onclick="deleteLast()" style="display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
-          <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
-          <line x1="18" y1="9" x2="12" y2="15"></line>
-          <line x1="12" y1="9" x2="18" y2="15"></line>
-        </svg>
-      </span>
+      <div class="memory-row">
+        <button type="button" class="mem-btn" onclick="memoryClear()">MC</button>
+        <button type="button" class="mem-btn" onclick="memoryRecall()">MR</button>
+        <button type="button" class="mem-btn" onclick="memoryAdd()">M+</button>
+        <button type="button" class="mem-btn" onclick="memorySubtract()">M−</button>
+        <button type="button" class="mem-btn" onclick="memoryStore()">MS</button>
+        <button type="button" class="mem-btn disabled" disabled>M▾</button>
+      </div>
 
-      
-      <span class="num" onclick="calculateReciprocal()">1/x</span>
-      <span class="num" onclick="calculateSquare()">x²</span>
-      <span class="num" onclick="calculateSquareRoot()">²√x</span>
-      <span class="num" onclick="appendValue('/')">÷</span>
-      <span class="num" onclick="appendValue('7')">7</span>
-      <span class="num" onclick="appendValue('8')">8</span>
-      <span class="num" onclick="appendValue('9')">9</span>
-      <span class="num" onclick="appendValue('*')">×</span>
-      <span class="num" onclick="appendValue('4')">4</span>
-      <span class="num" onclick="appendValue('5')">5</span>
-      <span class="num" onclick="appendValue('6')">6</span>
-      <span class="num" onclick="appendValue('-')">-</span>
-      <span class="num" onclick="appendValue('1')">1</span>
-      <span class="num" onclick="appendValue('2')">2</span>
-      <span class="num" onclick="appendValue('3')">3</span>
-      <span class="num plus" onclick="appendValue('+')">+</span>
-      <span class="num" onclick="toggleSign()">+/-</span>
-      <span class="num" onclick="appendValue('0')">0</span>
-      <span class="num" onclick="appendValue('.')">.</span>
-      <span class="num equal" onclick="calculateResult()">=</span>
+      <div class="standard-keys">
+        <button type="button" class="num" onclick="appendPercentage()">%</button>
+        <button type="button" class="num clear" onclick="clearDisplay()">CE</button>
+        <button type="button" class="num clear" onclick="clearDisplay()">C</button>
+        <button type="button" class="num" aria-label="Backspace" onclick="deleteLast()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+            <line x1="18" y1="9" x2="12" y2="15"></line>
+            <line x1="12" y1="9" x2="18" y2="15"></line>
+          </svg>
+        </button>
+        <button type="button" class="num" onclick="calculateReciprocal()">1/x</button>
+        <button type="button" class="num" onclick="calculateSquare()">x²</button>
+        <button type="button" class="num" onclick="calculateSquareRoot()">²√x</button>
+        <button type="button" class="num" onclick="appendValue('/')">÷</button>
+        <button type="button" class="num" onclick="appendValue('7')">7</button>
+        <button type="button" class="num" onclick="appendValue('8')">8</button>
+        <button type="button" class="num" onclick="appendValue('9')">9</button>
+        <button type="button" class="num" onclick="appendValue('*')">×</button>
+        <button type="button" class="num" onclick="appendValue('4')">4</button>
+        <button type="button" class="num" onclick="appendValue('5')">5</button>
+        <button type="button" class="num" onclick="appendValue('6')">6</button>
+        <button type="button" class="num" onclick="appendValue('-')">−</button>
+        <button type="button" class="num" onclick="appendValue('1')">1</button>
+        <button type="button" class="num" onclick="appendValue('2')">2</button>
+        <button type="button" class="num" onclick="appendValue('3')">3</button>
+        <button type="button" class="num plus" onclick="appendValue('+')">+</button>
+        <button type="button" class="num" onclick="toggleSign()">+/−</button>
+        <button type="button" class="num" onclick="appendValue('0')">0</button>
+        <button type="button" class="num" onclick="appendValue('.')">.</button>
+        <button type="button" class="num equal" onclick="calculateResult()">=</button>
+      </div>
+
+      <div class="scientific-keys">
+        <div class="function-row">
+          <div class="function-group">
+            <button type="button" class="function-toggle" onclick="toggleFunctionMenu('trig-menu')">◿&nbsp; Trigonometry <span>⌄</span></button>
+            <div class="function-menu" id="trig-menu" hidden>
+              <button type="button" onclick="applyScientificFunction('sin')">sin</button>
+              <button type="button" onclick="applyScientificFunction('cos')">cos</button>
+              <button type="button" onclick="applyScientificFunction('tan')">tan</button>
+            </div>
+          </div>
+          <div class="function-group">
+            <button type="button" class="function-toggle" onclick="toggleFunctionMenu('math-menu')">ƒ&nbsp; Function <span>⌄</span></button>
+            <div class="function-menu" id="math-menu" hidden>
+              <button type="button" onclick="applyScientificFunction('sinh')">sinh</button>
+              <button type="button" onclick="applyScientificFunction('cosh')">cosh</button>
+              <button type="button" onclick="applyScientificFunction('tanh')">tanh</button>
+              <button type="button" onclick="applyScientificFunction('factorial')">n!</button>
+            </div>
+          </div>
+        </div>
+        <div class="scientific-key-grid">
+          <button type="button" class="num" onclick="toggleSecondFunction()">2ⁿᵈ</button>
+          <button type="button" class="num" onclick="appendConstant('π')">π</button>
+          <button type="button" class="num" onclick="appendConstant('e')">e</button>
+          <button type="button" class="num" onclick="clearDisplay()">C</button>
+          <button type="button" class="num" aria-label="Backspace" onclick="deleteLast()">⌫</button>
+          <button type="button" class="num" onclick="calculateSquare()">x²</button>
+          <button type="button" class="num" onclick="calculateReciprocal()">1/x</button>
+          <button type="button" class="num" onclick="applyScientificFunction('abs')">|x|</button>
+          <button type="button" class="num" onclick="applyScientificFunction('exp')">exp</button>
+          <button type="button" class="num" onclick="appendValue('%')">mod</button>
+          <button type="button" class="num" onclick="calculateSquareRoot()">²√x</button>
+          <button type="button" class="num" onclick="appendValue('(')">(</button>
+          <button type="button" class="num" onclick="appendValue(')')">)</button>
+          <button type="button" class="num" onclick="applyScientificFunction('factorial')">n!</button>
+          <button type="button" class="num" onclick="appendValue('/')">÷</button>
+          <button type="button" class="num" onclick="appendValue('^')">xʸ</button>
+          <button type="button" class="num" onclick="appendValue('7')">7</button>
+          <button type="button" class="num" onclick="appendValue('8')">8</button>
+          <button type="button" class="num" onclick="appendValue('9')">9</button>
+          <button type="button" class="num" onclick="appendValue('*')">×</button>
+          <button type="button" class="num" onclick="applyScientificFunction('pow10')">10ˣ</button>
+          <button type="button" class="num" onclick="appendValue('4')">4</button>
+          <button type="button" class="num" onclick="appendValue('5')">5</button>
+          <button type="button" class="num" onclick="appendValue('6')">6</button>
+          <button type="button" class="num" onclick="appendValue('-')">−</button>
+          <button type="button" class="num" onclick="applyScientificFunction('log')">log</button>
+          <button type="button" class="num" onclick="appendValue('1')">1</button>
+          <button type="button" class="num" onclick="appendValue('2')">2</button>
+          <button type="button" class="num" onclick="appendValue('3')">3</button>
+          <button type="button" class="num" onclick="appendValue('+')">+</button>
+          <button type="button" class="num" onclick="applyScientificFunction('ln')">ln</button>
+          <button type="button" class="num" onclick="toggleSign()">+/−</button>
+          <button type="button" class="num" onclick="appendValue('0')">0</button>
+          <button type="button" class="num" onclick="appendValue('.')">.</button>
+          <button type="button" class="num equal" onclick="calculateResult()">=</button>
+        </div>
+      </div>
     </form>
 
     <script src="./js/java.js"></script>

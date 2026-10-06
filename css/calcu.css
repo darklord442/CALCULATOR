@@ -1,11 +1,9 @@
-/* Reset basic styles */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Center the calculator and set blackboard background */
 body {
   display: flex;
   justify-content: center;
@@ -18,81 +16,153 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Main Calculator Container - Solid Black */
 .calculator {
-  width: 320px;
-  background-color: #5b5b5b;
-  padding: 20px 12px 12px 12px;
-  border-radius: 12px;
-  border: 2px solid #333333; 
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
-  
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
+  width: 320px;
+  padding: 12px;
+  border: 2px solid #333333;
+  border-radius: 12px;
+  background-color: #5b5b5b;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
 }
 
-/* Solid Display Screen */
+.calculator-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 36px;
+  padding: 0 4px 4px;
+  color: #ffffff;
+}
+
+.menu-toggle {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 21px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.calculator-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.mode-menu {
+  position: absolute;
+  z-index: 3;
+  top: 34px;
+  left: 0;
+  width: 160px;
+  padding: 4px;
+  border: 1px solid #484848;
+  border-radius: 6px;
+  background: #292929;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.5);
+}
+
+.mode-menu button,
+.function-menu button {
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mode-menu button:hover,
+.function-menu button:hover {
+  background: #444444;
+}
+
 .calculator input.value {
-  grid-column: span 4; 
+  width: 100%;
   height: 80px;
-  background-color: #111111;
-  border: 2px solid #333333; 
-  border-radius: 8px; 
+  margin-bottom: 2px;
+  padding: 0 16px;
+  border: 2px solid #333333;
+  border-radius: 8px;
   outline: none;
+  background-color: #111111;
   color: #ffffff;
   font-size: 42px;
-  text-align: right;
-  padding: 0 16px; 
-  margin-bottom: 6px;
   font-weight: 300;
-  width: 100%;
+  text-align: right;
 }
 
-/* Memory Row Container */
+.scientific-options {
+  display: none;
+  align-items: center;
+  gap: 28px;
+  min-height: 28px;
+  padding: 0 12px;
+}
+
+.option-btn {
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 .memory-row {
-  grid-column: span 4;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: center;
+  min-height: 32px;
+  margin-bottom: 4px;
 }
 
-/* Individual Memory Button Styling */
 .mem-btn {
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 4px;
   background: none;
-  border: none;
   color: #cccccc;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 4px;
   transition: color 0.1s ease, background-color 0.1s ease;
 }
 
-.mem-btn:hover:not(.disabled) {
-  color: #ffffff;
+.mem-btn:hover:not(:disabled) {
   background-color: #262626;
+  color: #ffffff;
 }
 
-.mem-btn.disabled {
+.mem-btn:disabled {
   color: #666666;
   cursor: default;
 }
 
-/* Standard Button Styles - Solid Grey */
+.standard-keys,
+.scientific-key-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+}
+
 .num {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
-  background-color: #262626;
   border: 1px solid #3b3b3b;
+  border-radius: 6px;
+  background-color: #262626;
   color: #ffffff;
   font-size: 20px;
-  border-radius: 6px;
   cursor: pointer;
-  user-select: none; 
+  user-select: none;
   transition: background-color 0.1s ease;
 }
 
@@ -101,17 +171,16 @@ body {
 }
 
 .num:active {
+  transform: scale(0.96);
   background-color: #4d4d4d;
-  transform: scale(0.96); 
 }
 
-/* Equal Button - Solid Blue */
 .num.equal {
-  background-color: #0078d7; 
+  border-color: #1a8ad4;
+  background-color: #0078d7;
   color: #ffffff;
   font-size: 26px;
   font-weight: 500;
-  border: 1px solid #1a8ad4;
 }
 
 .num.equal:hover {
@@ -120,4 +189,105 @@ body {
 
 .num.equal:active {
   background-color: #006cc1;
+}
+
+.scientific-keys {
+  display: none;
+}
+
+.function-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0 -12px 2px;
+  padding: 6px 12px;
+  border-top: 1px solid #3a3a3a;
+}
+
+.function-group {
+  position: relative;
+  min-width: 0;
+}
+
+.function-toggle {
+  width: 100%;
+  min-height: 32px;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.function-toggle span {
+  margin-left: 4px;
+}
+
+.function-menu {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  left: 0;
+  min-width: 120px;
+  padding: 4px;
+  border: 1px solid #484848;
+  border-radius: 6px;
+  background: #292929;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.5);
+}
+
+.scientific-key-grid .num {
+  height: 44px;
+  font-size: 18px;
+}
+
+.calculator.scientific {
+  width: 406px;
+  padding: 12px 4px 4px;
+  gap: 4px;
+}
+
+.calculator.scientific .calculator-header {
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.calculator.scientific input.value {
+  height: 80px;
+  margin-bottom: 2px;
+}
+
+.calculator.scientific .scientific-options {
+  display: flex;
+}
+
+.calculator.scientific .memory-row {
+  min-height: 32px;
+  margin: 0 -4px 4px;
+  padding: 0 12px;
+}
+
+.calculator.scientific .standard-keys {
+  display: none;
+}
+
+.calculator.scientific .scientific-keys {
+  display: block;
+}
+
+.calculator.scientific .scientific-key-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.calculator.scientific .scientific-key-grid .num {
+  height: 44px;
+  border-radius: 6px;
+}
+
+@media (max-width: 430px) {
+  .calculator.scientific {
+    width: min(406px, 100vw);
+  }
 }
