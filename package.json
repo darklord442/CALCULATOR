@@ -1,0 +1,9 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Web-based scientific calculator",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}
