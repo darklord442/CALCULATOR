@@ -1,63 +1,166 @@
-/* Reset basic styles */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Center the calculator and set blackboard background */
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 16px;
+  background-color: #1b1b1b;
   background-image: url('https://img.magnific.com/free-photo/blackboard-inscribed-with-scientific-formulas-calculations_1150-19413.jpg?semt=ais_hybrid&w=740&q=80');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* Main Calculator Container - Solid Black */
-.calculator {
-  width: 320px;
-  background-color: #5b5b5b;
-  padding: 20px 12px 12px 12px;
-  border-radius: 12px;
-  border: 2px solid #333333; 
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
-  
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-}
-
-/* Solid Display Screen */
-.calculator input.value {
-  grid-column: span 4; 
-  height: 80px;
-  background-color: #111111;
-  border: 2px solid #333333; 
-  border-radius: 8px; 
-  outline: none;
   color: #ffffff;
-  font-size: 42px;
-  text-align: right;
-  padding: 0 16px; 
-  margin-bottom: 6px;
-  font-weight: 300;
-  width: 100%;
 }
 
-/* Memory Row Container */
-.memory-row {
-  grid-column: span 4;
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.app {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.calculator,
+.history {
+  background-color: #5b5b5b;
+  border: 2px solid #333333;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9);
+}
+
+.calculator {
+  width: 380px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Toolbar */
+.toolbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 8px;
 }
 
-/* Individual Memory Button Styling */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 4px;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.tool-btn {
+  background: #262626;
+  border: 1px solid #3b3b3b;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #cccccc;
+}
+
+.tool-btn:hover {
+  background: #383838;
+  color: #ffffff;
+}
+
+.tool-btn[aria-pressed="true"] {
+  background: #0078d7;
+  border-color: #1a8ad4;
+  color: #ffffff;
+}
+
+.history-toggle {
+  display: none;
+}
+
+/* Screen */
+.screen {
+  background-color: #111111;
+  border: 2px solid #333333;
+  border-radius: 8px;
+  padding: 8px 14px 6px;
+  margin-bottom: 6px;
+}
+
+.screen-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 20px;
+  gap: 8px;
+}
+
+.indicator {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4cc2ff;
+}
+
+.preview {
+  margin-left: auto;
+  font-size: 15px;
+  color: #9a9a9a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: plaintext;
+}
+
+.display {
+  height: 56px;
+  line-height: 56px;
+  font-size: 40px;
+  font-weight: 300;
+  text-align: right;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.display::-webkit-scrollbar {
+  display: none;
+}
+
+.display.medium {
+  font-size: 30px;
+}
+
+.display.small {
+  font-size: 22px;
+}
+
+.display.error {
+  font-size: 26px;
+  color: #ff8a80;
+}
+
+/* Memory row */
+.memory-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
 .mem-btn {
   background: none;
   border: none;
@@ -65,59 +168,174 @@ body {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 6px;
+  padding: 4px 10px;
   border-radius: 4px;
   transition: color 0.1s ease, background-color 0.1s ease;
 }
 
-.mem-btn:hover:not(.disabled) {
+.mem-btn:hover {
   color: #ffffff;
   background-color: #262626;
 }
 
-.mem-btn.disabled {
-  color: #666666;
-  cursor: default;
+/* Keypad */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
 }
 
-/* Standard Button Styles - Solid Grey */
-.num {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
+.key {
+  height: 50px;
   background-color: #262626;
   border: 1px solid #3b3b3b;
-  color: #ffffff;
-  font-size: 20px;
   border-radius: 6px;
+  font-size: 18px;
   cursor: pointer;
-  user-select: none; 
+  user-select: none;
   transition: background-color 0.1s ease;
 }
 
-.num:hover {
-  background-color: #383838;
+.key.fn {
+  background-color: #1f1f1f;
+  font-size: 16px;
 }
 
-.num:active {
-  background-color: #4d4d4d;
-  transform: scale(0.96); 
-}
-
-/* Equal Button - Solid Blue */
-.num.equal {
-  background-color: #0078d7; 
-  color: #ffffff;
-  font-size: 26px;
+.key.digit {
+  background-color: #333333;
+  font-size: 20px;
   font-weight: 500;
-  border: 1px solid #1a8ad4;
 }
 
-.num.equal:hover {
+.key.op {
+  font-size: 22px;
+}
+
+.key:hover {
+  background-color: #404040;
+}
+
+.key:active,
+.key.pressed {
+  background-color: #4d4d4d;
+  transform: scale(0.96);
+}
+
+.key[aria-pressed="true"] {
+  background-color: #0078d7;
+  border-color: #1a8ad4;
+}
+
+.key.equal {
+  background-color: #0078d7;
+  border: 1px solid #1a8ad4;
+  font-size: 24px;
+}
+
+.key.equal:hover {
   background-color: #1084e3;
 }
 
-.num.equal:active {
+.key.equal:active,
+.key.equal.pressed {
   background-color: #006cc1;
+}
+
+.key:focus-visible,
+.tool-btn:focus-visible,
+.mem-btn:focus-visible,
+.history-item:focus-visible {
+  outline: 2px solid #4cc2ff;
+  outline-offset: 1px;
+}
+
+/* History */
+.history {
+  width: 280px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  max-height: 640px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.history-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-color: #262626 transparent;
+}
+
+.history-item {
+  display: block;
+  width: 100%;
+  text-align: right;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.history-item:hover {
+  background-color: #262626;
+}
+
+.history-expr {
+  display: block;
+  font-size: 13px;
+  color: #cccccc;
+  word-break: break-all;
+}
+
+.history-result {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.history-empty {
+  color: #cccccc;
+  font-size: 14px;
+  padding: 4px;
+}
+
+@media (max-width: 720px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .app {
+    flex-direction: column;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .calculator {
+    width: 100%;
+  }
+
+  .history-toggle {
+    display: inline-block;
+  }
+
+  .history {
+    width: 100%;
+    display: none;
+    max-height: 320px;
+  }
+
+  .history.open {
+    display: flex;
+  }
 }

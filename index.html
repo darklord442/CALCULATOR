@@ -4,59 +4,100 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
+    <title>Scientific Calculator</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AE%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./css/calcu.css" />
   </head>
   <body>
+    <main class="app">
+      <section class="calculator" aria-label="Scientific calculator">
+        <header class="toolbar">
+          <span class="title">Scientific</span>
+          <div class="toolbar-actions">
+            <button type="button" class="tool-btn" id="angle-mode" title="Toggle degrees / radians">DEG</button>
+            <button type="button" class="tool-btn" id="hyp-mode" aria-pressed="false" title="Hyperbolic functions">HYP</button>
+            <button type="button" class="tool-btn history-toggle" id="history-toggle" title="Show history">History</button>
+          </div>
+        </header>
 
-    <form class="calculator" name="calc">
-      <input type="text" class="value" name="txt" id="display" readonly="" />
-      
-      <!-- Memory Buttons Row -->
-      <div class="memory-row">
-        <span class="mem-btn" onclick="memoryClear()">MC</span>
-        <span class="mem-btn" onclick="memoryRecall()">MR</span>
-        <span class="mem-btn" onclick="memoryAdd()">M+</span>
-        <span class="mem-btn" onclick="memorySubtract()">M-</span>
-        <span class="mem-btn" onclick="memoryStore()">MS</span>
-        <span class="mem-btn disabled">M▼</span>
-      </div>
+        <div class="screen">
+          <div class="screen-top">
+            <span class="indicator" id="memory-indicator" hidden>M</span>
+            <span class="preview" id="preview" aria-live="polite"></span>
+          </div>
+          <div class="display" id="display" role="status" aria-live="polite">0</div>
+        </div>
 
-      
-      <span class="num" onclick="appendPercentage()">%</span>
-      <span class="num clear" onclick="clearDisplay()">CE</span>
-      <span class="num clear" onclick="clearDisplay()">C</span>
-      <span class="num" onclick="deleteLast()" style="display: flex; align-items: center; justify-content: center;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
-          <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
-          <line x1="18" y1="9" x2="12" y2="15"></line>
-          <line x1="12" y1="9" x2="18" y2="15"></line>
-        </svg>
-      </span>
+        <div class="memory-row">
+          <button type="button" class="mem-btn" data-action="memory" data-value="clear">MC</button>
+          <button type="button" class="mem-btn" data-action="memory" data-value="recall">MR</button>
+          <button type="button" class="mem-btn" data-action="memory" data-value="add">M+</button>
+          <button type="button" class="mem-btn" data-action="memory" data-value="subtract">M−</button>
+          <button type="button" class="mem-btn" data-action="memory" data-value="store">MS</button>
+        </div>
 
-      
-      <span class="num" onclick="calculateReciprocal()">1/x</span>
-      <span class="num" onclick="calculateSquare()">x²</span>
-      <span class="num" onclick="calculateSquareRoot()">²√x</span>
-      <span class="num" onclick="appendValue('/')">÷</span>
-      <span class="num" onclick="appendValue('7')">7</span>
-      <span class="num" onclick="appendValue('8')">8</span>
-      <span class="num" onclick="appendValue('9')">9</span>
-      <span class="num" onclick="appendValue('*')">×</span>
-      <span class="num" onclick="appendValue('4')">4</span>
-      <span class="num" onclick="appendValue('5')">5</span>
-      <span class="num" onclick="appendValue('6')">6</span>
-      <span class="num" onclick="appendValue('-')">-</span>
-      <span class="num" onclick="appendValue('1')">1</span>
-      <span class="num" onclick="appendValue('2')">2</span>
-      <span class="num" onclick="appendValue('3')">3</span>
-      <span class="num plus" onclick="appendValue('+')">+</span>
-      <span class="num" onclick="toggleSign()">+/-</span>
-      <span class="num" onclick="appendValue('0')">0</span>
-      <span class="num" onclick="appendValue('.')">.</span>
-      <span class="num equal" onclick="calculateResult()">=</span>
-    </form>
+        <div class="keys">
+          <button type="button" class="key fn" data-action="func" data-value="sin" data-alt="asin" data-label="sin" data-alt-label="sin⁻¹">sin</button>
+          <button type="button" class="key fn" data-action="func" data-value="cos" data-alt="acos" data-label="cos" data-alt-label="cos⁻¹">cos</button>
+          <button type="button" class="key fn" data-action="func" data-value="tan" data-alt="atan" data-label="tan" data-alt-label="tan⁻¹">tan</button>
+          <button type="button" class="key fn" data-action="constant" data-value="e">e</button>
+          <button type="button" class="key fn" data-action="postfix" data-value="%">%</button>
 
+          <button type="button" class="key fn" id="second-key" data-action="second" aria-pressed="false">2<sup>nd</sup></button>
+          <button type="button" class="key fn" data-action="constant" data-value="π">π</button>
+          <button type="button" class="key fn" data-action="clear-entry">CE</button>
+          <button type="button" class="key fn" data-action="clear">C</button>
+          <button type="button" class="key fn" data-action="backspace" aria-label="Backspace">⌫</button>
+
+          <button type="button" class="key fn" data-action="postfix" data-value="²" data-alt="³" data-label="x²" data-alt-label="x³">x²</button>
+          <button type="button" class="key fn" data-action="func" data-value="reciprocal">1/x</button>
+          <button type="button" class="key fn" data-action="func" data-value="abs">|x|</button>
+          <button type="button" class="key fn" data-action="exp" title="Scientific notation (×10ⁿ)">EXP</button>
+          <button type="button" class="key fn" data-action="operator" data-value=" mod ">mod</button>
+
+          <button type="button" class="key fn" data-action="func" data-value="√" data-alt="∛" data-label="√x" data-alt-label="∛x">√x</button>
+          <button type="button" class="key fn" data-action="open-paren">(</button>
+          <button type="button" class="key fn" data-action="close-paren">)</button>
+          <button type="button" class="key fn" data-action="postfix" data-value="!">n!</button>
+          <button type="button" class="key op" data-action="operator" data-value="÷">÷</button>
+
+          <button type="button" class="key fn" data-action="operator" data-value="^">xʸ</button>
+          <button type="button" class="key digit" data-action="digit" data-value="7">7</button>
+          <button type="button" class="key digit" data-action="digit" data-value="8">8</button>
+          <button type="button" class="key digit" data-action="digit" data-value="9">9</button>
+          <button type="button" class="key op" data-action="operator" data-value="×">×</button>
+
+          <button type="button" class="key fn" data-action="func" data-value="pow10" data-alt="pow2" data-label="10ˣ" data-alt-label="2ˣ">10ˣ</button>
+          <button type="button" class="key digit" data-action="digit" data-value="4">4</button>
+          <button type="button" class="key digit" data-action="digit" data-value="5">5</button>
+          <button type="button" class="key digit" data-action="digit" data-value="6">6</button>
+          <button type="button" class="key op" data-action="operator" data-value="−">−</button>
+
+          <button type="button" class="key fn" data-action="func" data-value="log" data-alt="log2" data-label="log" data-alt-label="log₂">log</button>
+          <button type="button" class="key digit" data-action="digit" data-value="1">1</button>
+          <button type="button" class="key digit" data-action="digit" data-value="2">2</button>
+          <button type="button" class="key digit" data-action="digit" data-value="3">3</button>
+          <button type="button" class="key op" data-action="operator" data-value="+">+</button>
+
+          <button type="button" class="key fn" data-action="func" data-value="ln" data-alt="powe" data-label="ln" data-alt-label="eˣ">ln</button>
+          <button type="button" class="key digit" data-action="negate">+/−</button>
+          <button type="button" class="key digit" data-action="digit" data-value="0">0</button>
+          <button type="button" class="key digit" data-action="decimal">.</button>
+          <button type="button" class="key equal" data-action="equals">=</button>
+        </div>
+      </section>
+
+      <aside class="history" id="history" aria-label="Calculation history">
+        <header class="history-header">
+          <span>History</span>
+          <button type="button" class="tool-btn" id="history-clear" title="Clear history">Clear</button>
+        </header>
+        <ol class="history-list" id="history-list"></ol>
+        <p class="history-empty" id="history-empty">There's no history yet.</p>
+      </aside>
+    </main>
+
+    <script src="./js/evaluator.js"></script>
     <script src="./js/java.js"></script>
   </body>
 </html>
