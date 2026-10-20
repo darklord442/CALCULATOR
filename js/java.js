@@ -209,6 +209,7 @@ function setCalculatorMode(mode) {
     modeToggle.setAttribute('aria-expanded', 'false');
     document.getElementById('trig-menu').hidden = true;
     document.getElementById('math-menu').hidden = true;
+    clearDisplay();
 }
 
 function toggleFunctionMenu(menuId) {
